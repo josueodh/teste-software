@@ -4,42 +4,50 @@ import org.junit.Test;
 import org.junit.*;
 
 public class MainTest {
-	
-
+	Main main;
+	int [][] result;
+	@Before
+	public void setUp(){
+		main = new Main();
+		result = new int[3][3];
+		result[0][0] = 1;
+		result[0][1] = 0;
+		result[0][2] = 1;
+		result[1][0] = 0;
+		result[1][1] = 1;
+		result[1][2] = 0;
+		result[2][0] = 1;
+		result[2][1] = 0;
+		result[2][2] = 1;
+	}
 	
 	@Test
 	public void qualquerCelulaVivaCommenosDeDoisVizinhosVivosMorreDeSolidao() {
-		Main main = new Main();
 		assertEquals(0, main.returnNextStep(1,1));
 	}
 	
 	@Test 
 	public void qualquerCelulaVivaComMaisDeTresVizinhosivosMorreDeSuperpopulacao(){
-		Main main = new Main();
 		assertEquals(0, main.returnNextStep(4,1));
 	}
 	
 	@Test
 	public void qualquerCelulaMortaComExatamenteTresVizinhosVivosSeTornaUmaCelulaViva(){
-		Main main = new Main();
 		assertEquals(1, main.returnNextStep(3, 0));
 	}
 	
 	@Test
 	public void qualquerCelulaVivaComExatamenteDoisVizinhosFicaVivaNaProximaGeracao(){
-		Main main = new Main();
 		assertEquals(1, main.returnNextStep(2, 1));
 	}
 	
 	@Test
 	public void qualquerCelulaMortaComExatamenteDoisVizinhosFicaMortaNaProximaGeracao(){
-		Main main = new Main();
 		assertEquals(0, main.returnNextStep(2, 0));
 	}
 	
 	@Test
 	public void randomizadorGerandoValoresIguaisAZeroEUm(){
-		Main main = new Main();
 		int result =  main.returnNextStep(4, 0);
 		boolean checkResult = false;
 		if(result == 1 || result == 0){
@@ -50,7 +58,6 @@ public class MainTest {
 	
 	@Test
 	public void deveGerarUmArrayBidimensionalComValoresRandomizadosIguaisAZeroOuUm(){
-		Main main = new Main();
 		int[][] result = new int[3][3];
 		boolean checkResult = true;
 		result = main.generateRandom(result, 3);
@@ -62,8 +69,65 @@ public class MainTest {
 			}
 		}
 		assertEquals(true,checkResult);
-		
+	}
+	@Test
+	public void deveGerarUmaNovaGeracaoDeValores(){
+		int [][] nextGeneration = main.generateNextSteps(result, 3);
+		assertEquals(9, nextGeneration[0].length + nextGeneration[1].length + nextGeneration[2].length);
+	}
+	@Test
+	public void elementoAtualEhZeroZero(){
+		int total = main.returnSumNeighbors(0, 0, 2, result);
+		assertEquals(1, total);
+	}
+	
+	@Test 
+	public void elementoEhZeroUm(){
+		int total = main.returnSumNeighbors(0, 1,2, result);
+		assertEquals(total, 3);		
+	}
+	
+	@Test 
+	public void elementoEhZeroDois(){
+		int total = main.returnSumNeighbors(0, 2,2, result);
+		assertEquals(1, total);
+	}
+	
+	@Test
+	public void elementoEhUmZero(){
+		int total = main.returnSumNeighbors(1, 0, 2, result);
+		assertEquals(3, total);
 	}
 
-
+	@Test
+	public void elementoEhCentralizado(){
+		int total = main.returnSumNeighbors(1, 1, 2,result );
+		assertEquals(4, total);
+	}
+	
+	@Test
+	public void elementoEhUmDois(){
+		int total = main.returnSumNeighbors(1, 2, 2,result );
+		assertEquals(3, total);
+	}
+	
+	@Test 
+	public void elementoEhDoisZero(){
+		int total = main.returnSumNeighbors(2, 0, 2,result );
+		assertEquals(1, total);
+	}
+	
+	@Test 
+	public void elementoEhDoisUm(){
+		int total = main.returnSumNeighbors(2, 1, 2,result );
+		assertEquals(3, total);
+	}
+	
+	@Test 
+	public void elementoEhDoisDois(){
+		int total = main.returnSumNeighbors(2, 2, 2,result );
+		assertEquals(1, total);
+	}
+	
+	
 }

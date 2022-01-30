@@ -48,39 +48,45 @@ public class Main {
 		int boardDimensionMinusOne = boardDimension - 1;
 		for (int j = 0; j < boardDimension; j++) {
 			for (int i = 0; i < boardDimension; i++) {
-				int sumNeighbors = 0;
-				if (j != 0 && j != boardDimensionMinusOne && i != 0 && i != boardDimensionMinusOne) {
-					sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1]
-							+ actualRound[j + 1][i + 1] + actualRound[j + 1][i] + actualRound[j + 1][i - 1]
-							+ actualRound[j][i - 1] + actualRound[j - 1][i - 1];
-				} else if (i > 0 && i < boardDimensionMinusOne && j == 0) {
-					sumNeighbors = actualRound[j][i + 1] + actualRound[j + 1][i + 1] + actualRound[j + 1][i]
-							+ actualRound[j + 1][i - 1] + actualRound[j][i - 1];
-				} else if (i > 0 && i < boardDimensionMinusOne && j == boardDimensionMinusOne) {
-					sumNeighbors = actualRound[j][i - 1] + actualRound[j - 1][i - 1] + actualRound[j - 1][i]
-							+ actualRound[j - 1][i + 1] + actualRound[j][i + 1];
-				} else if (j > 0 && j < boardDimensionMinusOne && i == 0) {
-					sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1]
-							+ actualRound[j + 1][i + 1] + actualRound[j + 1][i];
-				} else if (j > 0 && j < boardDimensionMinusOne && i == boardDimensionMinusOne) {
-					sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i - 1] + actualRound[j][i - 1]
-							+ actualRound[j + 1][i - 1] + actualRound[j + 1][i];
-				} else if (j == 0 && i == 0) {
-					sumNeighbors = actualRound[j][i + 1] + actualRound[j + 1][i + 1] + actualRound[j + 1][i];
-				} else if (j == 0 && i == boardDimensionMinusOne) {
-					sumNeighbors = actualRound[j][i - 1] + actualRound[j + 1][i - 1] + actualRound[j + 1][i];
-				} else if (j == boardDimensionMinusOne && i == 0) {
-					sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1];
-				} else if (j == boardDimensionMinusOne && i == boardDimensionMinusOne) {
-					sumNeighbors = actualRound[j][i - 1] + actualRound[j - 1][i - 1] + actualRound[j - 1][i];
-				}
-
+				int sumNeighbors = returnSumNeighbors(i,j,boardDimensionMinusOne, actualRound);
 				nextRound[j][i] = returnNextStep(sumNeighbors, actualRound[j][i]);
 			}
 		}
 		return nextRound;
 	}
 
+	public static int returnSumNeighbors(int i, int j, int boardDimensionMinusOne, int[][] actualRound){
+		int sumNeighbors = 0;
+		if (j != 0 && j != boardDimensionMinusOne && i != 0 && i != boardDimensionMinusOne) {
+			sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1]
+					+ actualRound[j + 1][i + 1] + actualRound[j + 1][i] + actualRound[j + 1][i - 1]
+					+ actualRound[j][i - 1] + actualRound[j - 1][i - 1];
+		} else if (i > 0 && i < boardDimensionMinusOne && j == 0) {
+			sumNeighbors = actualRound[j][i + 1] + actualRound[j + 1][i + 1] + actualRound[j + 1][i]
+					+ actualRound[j + 1][i - 1] + actualRound[j][i - 1];
+		} else if (i > 0 && i < boardDimensionMinusOne && j == boardDimensionMinusOne) {
+			sumNeighbors = actualRound[j][i - 1] + actualRound[j - 1][i - 1] + actualRound[j - 1][i]
+					+ actualRound[j - 1][i + 1] + actualRound[j][i + 1];
+		} else if (j > 0 && j < boardDimensionMinusOne && i == 0) {
+			sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1]
+					+ actualRound[j + 1][i + 1] + actualRound[j + 1][i];
+		} else if (j > 0 && j < boardDimensionMinusOne && i == boardDimensionMinusOne) {
+			sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i - 1] + actualRound[j][i - 1]
+					+ actualRound[j + 1][i - 1] + actualRound[j + 1][i];
+		} else if (j == 0 && i == 0) {
+			sumNeighbors = actualRound[j][i + 1] + actualRound[j + 1][i + 1] + actualRound[j + 1][i];
+		} else if (j == 0 && i == boardDimensionMinusOne) {
+			sumNeighbors = actualRound[j][i - 1] + actualRound[j + 1][i - 1] + actualRound[j + 1][i];
+		} else if (j == boardDimensionMinusOne && i == 0) {
+			sumNeighbors = actualRound[j - 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1];
+		} else if (j == boardDimensionMinusOne && i == boardDimensionMinusOne) {
+			sumNeighbors = actualRound[j][i - 1] + actualRound[j - 1][i - 1] + actualRound[j - 1][i];
+		}
+		
+		return sumNeighbors;
+		
+		
+	}
 	public static int returnNextStep(int totalNeighbors, int element) {
 		Random random = new Random();
 		if (totalNeighbors == 2) {
