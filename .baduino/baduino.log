@@ -1,0 +1,6 @@
+[DEBUG] 31-01-2022 21:50:12 TestsRunner:28 - Loading classes
+[DEBUG] 31-01-2022 21:50:12 TestsRunner:42 - Finished loading classes
+[DEBUG] 31-01-2022 21:50:12 TestsRunner:59 - Finished loading test classes
+[DEBUG] 31-01-2022 21:50:12 TestsRunner:60 - Testing with JUnit
+[INFO ] 31-01-2022 21:50:12 TestsRunner:64 - Executed 17 tests in 0.007 seconds. 0 tests failed.
+[INFO ] 31-01-2022 21:50:12 TestsRunner:67 - All tests passed.

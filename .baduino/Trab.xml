@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="Trab">
+    <baduino>/home/marcelo/repos/teste-software/.baduino</baduino>
+    <classes>
+        <class>MainTest</class>
+        <class>Main</class>
+    </classes>
+    <classes-path>/home/marcelo/repos/teste-software/bin</classes-path>
+    <coverage-bin>/home/marcelo/repos/teste-software/.baduino/coverage.ser</coverage-bin>
+    <coverage-xml>/home/marcelo/repos/teste-software/.baduino/coverage.xml</coverage-xml>
+    <location>/home/marcelo/repos/teste-software</location>
+    <path>/home/marcelo/repos/teste-software/.baduino/Trab.xml</path>
+</model>
