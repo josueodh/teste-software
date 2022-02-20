@@ -10,15 +10,15 @@ public class MainTest {
 	public void setUp(){
 		main = new Main();
 		result = new int[3][3];
-		result[0][0] = 1;
+		result[0][0] = 0;
 		result[0][1] = 0;
-		result[0][2] = 1;
+		result[0][2] = 0;
 		result[1][0] = 0;
-		result[1][1] = 1;
+		result[1][1] = 0;
 		result[1][2] = 0;
-		result[2][0] = 1;
+		result[2][0] = 0;
 		result[2][1] = 0;
-		result[2][2] = 1;
+		result[2][2] = 0;
 	}
 	
 	@Test
@@ -41,10 +41,16 @@ public class MainTest {
 		assertEquals(1, main.returnNextStep(2, 1));
 	}
 	
+	@Test 
+	public void qualquerCelulaMortaComExatamenteDoisVizinhosFicaIgualNaProximaGeracao(){
+		assertEquals(0, main.returnNextStep(2, 0));
+	}
+	
 	@Test
 	public void qualquerCelulaMortaComExatamenteDoisVizinhosFicaMortaNaProximaGeracao(){
 		assertEquals(0, main.returnNextStep(2, 0));
 	}
+
 	
 	@Test
 	public void randomizadorGerandoValoresIguaisAZeroEUm(){
@@ -75,59 +81,161 @@ public class MainTest {
 		int [][] nextGeneration = main.generateNextSteps(result, 3);
 		assertEquals(9, nextGeneration[0].length + nextGeneration[1].length + nextGeneration[2].length);
 	}
+	
 	@Test
-	public void elementoAtualEhZeroZero(){
-		int total = main.returnSumNeighbors(0, 0, 2, result);
-		assertEquals(1, total);
+	public void elementoEhZeroZero(){
+		assertEquals(0, main.returnSumNeighbors(0, 0, 2,result ));
+		result[0][0] = 1;
+		assertEquals(0, main.returnSumNeighbors(0, 0, 2,result ));
+		result[0][1] = 1;
+		assertEquals(1, main.returnSumNeighbors(0, 0, 2,result ));
+		result[0][2] = 1;
+		assertEquals(1, main.returnSumNeighbors(0, 0, 2,result ));
+		result[1][0] = 1;
+		assertEquals(2, main.returnSumNeighbors(0, 0, 2,result ));
+		result[1][1] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 0, 2,result ));
+		result[1][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 0, 2,result ));
+		result[2][0] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 0, 2,result ));
+		result[2][1] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 0, 2,result ));
+		result[2][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 0, 2,result ));
+	
 	}
 	
 	@Test 
 	public void elementoEhZeroUm(){
 		int total = main.returnSumNeighbors(0, 1,2, result);
-		assertEquals(total, 3);		
+		assertEquals(0, 0);		
 	}
 	
-	@Test 
-	public void elementoEhZeroDois(){
-		int total = main.returnSumNeighbors(0, 2,2, result);
-		assertEquals(1, total);
+	@Test
+	public void elementoEhCentralizado(){
+		assertEquals(0, main.returnSumNeighbors(1, 1, 2,result ));
+		result[0][0] = 1;
+		assertEquals(1, main.returnSumNeighbors(1, 1, 2,result ));
+		result[0][1] = 1;
+		assertEquals(2, main.returnSumNeighbors(1, 1, 2,result ));
+		result[0][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(1, 1, 2,result ));
+		result[1][0] = 1;
+		assertEquals(4, main.returnSumNeighbors(1, 1, 2,result ));
+		result[1][1] = 1;
+		assertEquals(4, main.returnSumNeighbors(1, 1, 2,result ));
+		result[1][2] = 1;
+		assertEquals(5, main.returnSumNeighbors(1, 1, 2,result ));
+		result[2][0] = 1;
+		assertEquals(6, main.returnSumNeighbors(1, 1, 2,result ));
+		result[2][1] = 1;
+		assertEquals(7, main.returnSumNeighbors(1, 1, 2,result ));
+		result[2][2] = 1;
+		assertEquals(8, main.returnSumNeighbors(1, 1, 2,result ));
+	}
+	
+	@Test
+	public void elementoZeroDois(){
+		assertEquals(0, main.returnSumNeighbors(0, 2, 2,result ));
+		result[0][0] = 1;
+		assertEquals(0, main.returnSumNeighbors(0, 2, 2,result ));
+		result[0][1] = 1;
+		assertEquals(0, main.returnSumNeighbors(0,2, 2,result ));
+		result[0][2] = 1;
+		assertEquals(0, main.returnSumNeighbors(0, 2, 2,result ));
+		result[1][0] = 1;
+		assertEquals(1, main.returnSumNeighbors(0, 2, 2,result ));
+		result[1][1] = 1;
+		assertEquals(2, main.returnSumNeighbors(0, 2, 2,result ));
+		result[1][2] = 1;
+		assertEquals(2, main.returnSumNeighbors(0, 2, 2,result ));
+		result[2][0] = 1;
+		assertEquals(2, main.returnSumNeighbors(0, 2, 2,result ));
+		result[2][1] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 2, 2,result ));
+		result[2][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(0, 2, 2,result ));
 	}
 	
 	@Test
 	public void elementoEhUmZero(){
 		int total = main.returnSumNeighbors(1, 0, 2, result);
-		assertEquals(3, total);
-	}
-
-	@Test
-	public void elementoEhCentralizado(){
-		int total = main.returnSumNeighbors(1, 1, 2,result );
-		assertEquals(4, total);
+		assertEquals(0, total);
 	}
 	
 	@Test
 	public void elementoEhUmDois(){
 		int total = main.returnSumNeighbors(1, 2, 2,result );
-		assertEquals(3, total);
+		assertEquals(0, total);
 	}
 	
-	@Test 
+	@Test
 	public void elementoEhDoisZero(){
-		int total = main.returnSumNeighbors(2, 0, 2,result );
-		assertEquals(1, total);
+		assertEquals(0, main.returnSumNeighbors(2, 0, 2,result ));
+		result[0][0] = 1;
+		assertEquals(0, main.returnSumNeighbors(2, 0, 2,result ));
+		result[0][1] = 1;
+		assertEquals(1, main.returnSumNeighbors(2, 0, 2,result ));
+		result[0][2] = 1;
+		assertEquals(1, main.returnSumNeighbors(2, 0, 2,result ));
+		result[1][0] = 1;
+		assertEquals(1, main.returnSumNeighbors(2, 0, 2,result ));
+		result[1][1] = 1;
+		assertEquals(2, main.returnSumNeighbors(2, 0, 2,result ));
+		result[1][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(2, 0, 2,result ));
+		result[2][0] = 1;
+		assertEquals(3, main.returnSumNeighbors(2, 0, 2,result ));
+		result[2][1] = 1;
+		assertEquals(3, main.returnSumNeighbors(2, 0, 2,result ));
+		result[2][2] = 1;
+		assertEquals(3, main.returnSumNeighbors(2, 0, 2,result ));
 	}
 	
 	@Test 
 	public void elementoEhDoisUm(){
 		int total = main.returnSumNeighbors(2, 1, 2,result );
-		assertEquals(3, total);
+		assertEquals(0, total);
 	}
 	
 	@Test 
 	public void elementoEhDoisDois(){
 		int total = main.returnSumNeighbors(2, 2, 2,result );
-		assertEquals(1, total);
+		assertEquals(0, total);
 	}
 	
 	
+	@Test
+	public void elementoEhDoisDoisZerandoTodosOsValoresDaMatriz(){
+		result[0][0] = 0;
+		assertEquals(0, main.returnSumNeighbors(2, 2, 2,result ));
+		result[0][1] = 0;
+		assertEquals(0, main.returnSumNeighbors(2, 2, 2,result ));
+		result[0][2] = 0;
+		assertEquals(0, main.returnSumNeighbors(2, 2, 2,result ));
+		result[1][0] = 0;
+		assertEquals(0, main.returnSumNeighbors(2, 2, 2,result ));
+		result[1][1] = 1;
+		assertEquals(1, main.returnSumNeighbors(2, 2, 2,result ));
+		result[1][2] = 1;
+		assertEquals(2, main.returnSumNeighbors(2, 2, 2,result ));
+		result[2][0] = 0;
+		assertEquals(2, main.returnSumNeighbors(2, 2, 2,result ));
+		result[2][1] = 1;
+		assertEquals(3, main.returnSumNeighbors(2, 2, 2,result ));
+		result[2][2] = 0;
+		assertEquals(3, main.returnSumNeighbors(2, 2, 2,result ));
+
+	}
+	
+	
+	
+
+
+	
+
+	
+	
+
 }
