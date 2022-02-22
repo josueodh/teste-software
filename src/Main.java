@@ -5,9 +5,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("Trabalho de Teste de Software 2021.3");
-		System.out.println("Jo�o Pedro Sequeto Nascimento - 201776022");
-		System.out.println("Josu� de Oliveira Delgado Heringer - 201876023");
-		System.out.println("Marcelo Gon�alves de Souza Costa - 201776016");
+		System.out.println("João Pedro Sequeto Nascimento - 201776022");
+		System.out.println("Josué de Oliveira Delgado Heringer - 201876023");
+		System.out.println("Marcelo Gonçalves de Souza Costa - 201776016");
 		System.out.println("=================================================");
 		int boardDimension = 6;
 		boolean finished = false;
@@ -21,7 +21,7 @@ public class Main {
 			Scanner scan = new Scanner(System.in);
 			System.out.println("=================================================");
 			System.out.println("Deseja finalizar o Jogo ?");
-			System.out.println("[ N ] N�o");
+			System.out.println("[ N ] Não");
 			System.out.println("[ S ] Sim");
 			String next = scan.nextLine();
 			if (next.equals("S") || next.equals("Sim")) {
@@ -33,10 +33,11 @@ public class Main {
 	}
 
 	public static int[][] generateRandom(int[][] actualRound, int boardDimension) {
-		Random random = new Random();
 		for (int j = 0; j < boardDimension; j++) {
 			for (int i = 0; i < boardDimension; i++) {
-				actualRound[j][i] = random.nextBoolean() == true ? 1 : 0;
+				Random random = new Random();
+				boolean result = random.nextBoolean();
+				actualRound[j][i] = returnRandomInt();
 			}
 		}
 
@@ -58,7 +59,9 @@ public class Main {
 	public static int returnSumNeighbors(int i, int j, int boardDimensionMinusOne, int[][] actualRound) {
 		int sumNeighbors = 0;
 		if (j != 0 && j != boardDimensionMinusOne && i != 0 && i != boardDimensionMinusOne) {
-			sumNeighbors = actualRound[j-1][i-1] + actualRound[j][i-1] + actualRound[j+1][i-1] + actualRound[j-1][i] + actualRound[j+1][i] + actualRound[j-1][i+1] + actualRound[j][i+1] + actualRound[j+1][i+1];
+			sumNeighbors = actualRound[j - 1][i - 1] + actualRound[j][i - 1] + actualRound[j + 1][i - 1]
+					+ actualRound[j - 1][i] + actualRound[j + 1][i] + actualRound[j - 1][i + 1] + actualRound[j][i + 1]
+					+ actualRound[j + 1][i + 1];
 		} else if (i > 0 && i < boardDimensionMinusOne && j == 0) {
 			sumNeighbors = actualRound[j][i + 1] + actualRound[j + 1][i + 1] + actualRound[j + 1][i]
 					+ actualRound[j + 1][i - 1] + actualRound[j][i - 1];
@@ -82,26 +85,25 @@ public class Main {
 		}
 
 		return sumNeighbors;
-
 	}
 
 	public static int returnNextStep(int totalNeighbors, int element) {
-		Random random = new Random();
-		if (totalNeighbors == 2) {
-			return element;
-		} else if (element == 1 && totalNeighbors < 2) {
+
+		if (element == 1 && totalNeighbors < 2) {
 			return 0;
 		} else if (element == 1 && totalNeighbors > 3) {
 			return 0;
 		} else if (element == 0 && totalNeighbors == 3) {
 			return 1;
+		} else if (totalNeighbors == 2) {
+			return element;
 		} else {
-			return random.nextBoolean() == true ? 1 : 0;
+			return returnRandomInt();
 		}
 	}
 
 	public static void print(int[][] actual, int[][] previous, int acumulate, int boardDimension) {
-		System.out.println("\n" + acumulate + "� Itera��o");
+		System.out.println("\n" + acumulate + "° Iteração");
 		System.out.println("\t Anterior  \t \t || \t \t Atual");
 		for (int j = 0; j < boardDimension; j++) {
 			for (int i = 0; i < boardDimension; i++) {
@@ -113,6 +115,12 @@ public class Main {
 			}
 			System.out.println("");
 		}
+	}
+
+	public static int returnRandomInt() {
+		Random random = new Random();
+		boolean result = random.nextBoolean();
+		return result == true ? 1 : 0;
 	}
 
 }
